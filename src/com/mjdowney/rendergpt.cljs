@@ -187,7 +187,6 @@
 (defn build-source [selected all-code-blocks settings]
   (let [sort-order (fn [{:keys [type]}]
                      (get {"css" 0 "html" 1 "html+" 1 "javascript" 2} type 3))
-        tailwind-link "<link href=\"https://cdn.tailwindcss.com\" rel=\"stylesheet\">"
         blocks (as-> selected $
                      (map (fn [idx] (assoc (nth all-code-blocks idx) :idx idx)) $)
                      (if (:order-by-type settings) (sort-by sort-order $) $))]
@@ -196,8 +195,7 @@
       [:html
        (->> blocks
             (map code-block-html)
-            (string/join "\n\n")
-            (str tailwind-link))])))  ; append tailwind css link to the source
+            (string/join "\n\n"))])))
 
 (defn rendergpt [code-block-idx]
   (let [selected (r/atom [code-block-idx])
@@ -243,14 +241,15 @@
                        :height "-webkit-fill-available"
                        :margin 0
                        :padding 0}}]
-             [:iframe
-              {:srcDoc src
-               :style {:position         "relative"
-                       :width            "100%"
-                       :min-height       "500px"
-                       :border           "1px solid steelblue"
-                       :border-radius    "5px"
-                       :background-color "white"}}])))])))
+             (let [src-with-css (str "<head><script src='https://cdn.tailwindcss.com'></script></head>" src)]
+              [:iframe
+                {:srcDoc src-with-css
+                  :style {:position "relative"
+                          :width "100%"
+                          :min-height "500px"
+                          :border "1px solid steelblue"
+                          :border-radius "5px"
+                          :background-color "white"}}]))))])))
 
 ;;; (3) Vanilla JS to add a button element to each code block which injects the
 ;;; above react component.
