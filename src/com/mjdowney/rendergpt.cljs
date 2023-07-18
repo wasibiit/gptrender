@@ -187,6 +187,7 @@
 (defn build-source [selected all-code-blocks settings]
   (let [sort-order (fn [{:keys [type]}]
                      (get {"css" 0 "html" 1 "html+" 1 "javascript" 2} type 3))
+        tailwind-link "<link href=\"https://cdn.tailwindcss.com\" rel=\"stylesheet\">"
         blocks (as-> selected $
                      (map (fn [idx] (assoc (nth all-code-blocks idx) :idx idx)) $)
                      (if (:order-by-type settings) (sort-by sort-order $) $))]
@@ -195,7 +196,8 @@
       [:html
        (->> blocks
             (map code-block-html)
-            (string/join "\n\n"))])))
+            (string/join "\n\n")
+            (str tailwind-link))])))  ; append tailwind css link to the source
 
 (defn rendergpt [code-block-idx]
   (let [selected (r/atom [code-block-idx])
