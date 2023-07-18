@@ -37,6 +37,7 @@ Generating a PlantUML diagram from source code:
 ## Ideas 
 
 - [x] Render HTML/CSS/JavaScript in an iframe inside the conversation
+- [x] Render using Tailwind CSS, 
 - [x] Allow mixing and matching different code blocks from the conversation
 - [x] Render PlantUML diagrams. I've been copy-and-pasting ChatGPT output into
   [plantuml.com's web app](http://www.plantuml.com/plantuml/uml/SyfFKj2rKt3CoKnELR1Io4ZDoSa70000)
