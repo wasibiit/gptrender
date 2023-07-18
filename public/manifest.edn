@@ -1,7 +1,7 @@
 {:manifest_version         3
 
  ;; Description
- :name                     "RenderGPT"
+ :name                     "GPTRender"
  :description              "A Chrome extension to render HTML/JavaScript/CSS from ChatGPT into iframes."
  :version                  "1.4"
  :icons                    {"16"  "images/icon16.png"
