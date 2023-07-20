@@ -241,7 +241,13 @@
                        :height "-webkit-fill-available"
                        :margin 0
                        :padding 0}}]
-             (let [src-with-css (str "<head><script src='https://cdn.tailwindcss.com'></script></head>" src)]
+             (let [src-with-css (str "
+                <head>
+                  <script src='https://cdn.tailwindcss.com'></script>
+                  <style>body { display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }</style>
+                </head>
+                <body>"src"</body>
+                ")]
               [:iframe
                 {:srcDoc src-with-css
                   :style {:position "relative"
